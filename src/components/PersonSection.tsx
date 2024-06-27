@@ -1,10 +1,20 @@
+import { usePerson } from "@/hooks/usePerson";
 import { Person } from "@/utils/common/person";
 import classNames from "classnames";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "./Button";
+import PersonCard from "./PersonCard";
 
 const PersonSection = () => {
   const [activePerson, setActivePerson] = useState<Person | "">("");
+
+  const { mutate, data } = usePerson();
+
+  useEffect(() => {
+    if (activePerson) {
+      mutate(activePerson);
+    }
+  }, [activePerson, mutate]);
 
   return (
     <>
@@ -18,9 +28,9 @@ const PersonSection = () => {
             {person}
           </Button>
         ))}
-
         <button />
       </div>
+      {data && <PersonCard user={data} />}
     </>
   );
 };
