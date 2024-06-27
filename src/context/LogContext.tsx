@@ -2,6 +2,7 @@ import {
   FunctionComponent,
   PropsWithChildren,
   createContext,
+  useContext,
   useState,
 } from "react";
 
@@ -31,4 +32,19 @@ export const LogContextProvider: FunctionComponent<PropsWithChildren> = ({
       {children}
     </LogContext.Provider>
   );
+};
+
+/**
+ * Returns the value of the LogContext using the useContext hook. Throws an error if
+ * the LogContext is not provided.
+ *
+ * @return {LogContextProps | undefined} The value of the LogContext.
+ * @throws {Error} Throws an error if the LogContext is not provided.
+ */
+export const useLogContext = () => {
+  const logContext = useContext(LogContext);
+  if (!logContext) {
+    throw new Error("Please provide values to log provider");
+  }
+  return logContext;
 };

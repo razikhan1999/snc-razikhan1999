@@ -1,12 +1,13 @@
 import useCurrentTime from "@/hooks/useCurrentTime";
+import { useLogValues } from "@/hooks/useLogValues";
 import { usePerson } from "@/hooks/usePerson";
+import { formatDate } from "@/utils/common/format-date";
 import { Person } from "@/utils/common/person";
 import classNames from "classnames";
 import { useEffect, useState } from "react";
 import { Button } from "./Button";
 import PersonCard from "./PersonCard";
 import PersonCardSkeleton from "./PersonCardSkeleton";
-import { formatDate } from "@/utils/common/format-date";
 
 const PersonSection = () => {
   const [activePerson, setActivePerson] = useState<Person | "">("");
@@ -14,6 +15,8 @@ const PersonSection = () => {
   const currentTime = useCurrentTime();
 
   const { mutate, isPending, data, isError } = usePerson();
+
+  useLogValues({ user: data, date: currentTime });
 
   useEffect(() => {
     if (activePerson) {
