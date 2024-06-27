@@ -1,8 +1,7 @@
-import { FunctionComponent, PropsWithChildren } from "react";
-import { Inter } from "next/font/google";
+import PersonSection from "@/components/PersonSection";
 import classNames from "classnames";
-import { Button } from "@/components/Button";
-import { Person } from "@/utils/common/person";
+import { Inter } from "next/font/google";
+import { FunctionComponent, PropsWithChildren } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,15 +15,10 @@ export const MainLayout: FunctionComponent<
       className={classNames(
         inter.className,
         "h-screen w-screen",
-        "flex flex-col justify-center items-center",
+        "flex flex-col justify-center items-center gap-4",
       )}
     >
-      <div className={classNames("flex gap-2")}>
-        {Object.values(Person).map((person) => (
-          <Button key={person}>{person}</Button>
-        ))}
-        <button />
-      </div>
+      <PersonSection />
     </main>
   );
 };
