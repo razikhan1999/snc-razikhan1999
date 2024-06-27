@@ -1,3 +1,4 @@
+import useCurrentTime from "@/hooks/useCurrentTime";
 import { usePerson } from "@/hooks/usePerson";
 import { Person } from "@/utils/common/person";
 import classNames from "classnames";
@@ -5,9 +6,12 @@ import { useEffect, useState } from "react";
 import { Button } from "./Button";
 import PersonCard from "./PersonCard";
 import PersonCardSkeleton from "./PersonCardSkeleton";
+import { formatDate } from "@/utils/common/format-date";
 
 const PersonSection = () => {
   const [activePerson, setActivePerson] = useState<Person | "">("");
+
+  const currentTime = useCurrentTime();
 
   const { mutate, isPending, data, isError } = usePerson();
 
@@ -31,6 +35,7 @@ const PersonSection = () => {
         ))}
         <button />
       </div>
+      <p suppressHydrationWarning>{formatDate(currentTime)}</p>
       {isPending && <PersonCardSkeleton />}
       {data && <PersonCard user={data} />}
       {isError && (
